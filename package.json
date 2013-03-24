@@ -1,0 +1,31 @@
+{
+  "name": "connect-browserify",
+  "version": "0.1.0",
+  "description": "Connect/express middleware for apps with browserify",
+  "main": "index.js",
+
+  "dependencies": {
+    "browser-resolve": "git://github.com/andreypopp/node-browser-resolve#master",
+    "module-deps": "git://github.com/andreypopp/module-deps#master",
+    "browserify": "git://github.com/andreypopp/node-browserify#master",
+    "fibrous": "",
+    "browserify-shim": ""
+  },
+
+  "keywords": [
+    "connect",
+    "express",
+    "browserify",
+    "bundle",
+    "assets",
+    "middelware"
+  ],
+
+  "author": {
+    "name": "Andrey Popp",
+    "email": "8mayday@gmail.com",
+    "url": "http://andreypopp.com"
+  },
+
+  "license": "MIT"
+}
