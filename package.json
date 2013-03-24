@@ -1,6 +1,6 @@
 {
   "name": "connect-browserify",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Connect/express middleware for apps with browserify",
   "main": "index.js",
 

@@ -30,11 +30,13 @@
       extensions: options.extensions
     });
     if (options.shims != null) {
-      shims = extend({}, options.shims);
+      shims = {};
       _ref1 = options.shims;
       for (k in _ref1) {
         v = _ref1[k];
-        shims[k].path = join(baseDir, v.path);
+        shims[k] = extend({}, v, {
+          path: join(baseDir, v.path)
+        });
       }
       b = shim(b, shims);
     }
