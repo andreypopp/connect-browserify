@@ -1,10 +1,11 @@
 {
   "name": "connect-browserify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Connect/express middleware for apps with browserify",
   "main": "index.js",
 
   "dependencies": {
+    "xtend": "~2.0.0",
     "browser-resolve": "git://github.com/andreypopp/node-browser-resolve#master",
     "module-deps": "git://github.com/andreypopp/module-deps#master",
     "browserify": "git://github.com/andreypopp/node-browserify#master",
