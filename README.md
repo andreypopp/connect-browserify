@@ -37,7 +37,8 @@ Basic usage is as follows:
                                       // browserify at andreypopp/node-browserify,
                                       // allows to consider non-js files as
                                       // CommonJS modules
-      });
+      })
+    );
 
     app.listen(3000);
 
