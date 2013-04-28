@@ -59,7 +59,6 @@
       }
     }
     b.bundle(options, function(err, result) {
-      console.log('c', err, result);
       if (err) {
         return promise.reject(err);
       } else {
@@ -89,7 +88,6 @@
       }
     });
     return function(req, res, next) {
-      console.log('start');
       return rendered.then(function(result) {
         return res.end(result);
       }).fail(next);
