@@ -1,16 +1,16 @@
 {
   "name": "connect-browserify",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Connect/express middleware for serving apps to a browser with browserify",
   "main": "index.js",
 
   "dependencies": {
+    "kew": "~0.1.6",
     "xtend": "~2.0.0",
     "browser-resolve": "git://github.com/andreypopp/node-browser-resolve#master",
     "module-deps": "git://github.com/andreypopp/module-deps#master",
     "browserify": "git://github.com/andreypopp/node-browserify#master",
-    "fibrous": "",
-    "browserify-shim": ""
+    "browserify-shim": "~2.0.3"
   },
 
   "keywords": [
