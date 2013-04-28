@@ -32,7 +32,6 @@ exports.bundle = (options) ->
       b.require(requirement, expose: expose)
 
   b.bundle options, (err, result) ->
-    console.log 'c', err, result
     if err then promise.reject(err) else promise.resolve(result)
 
   promise
@@ -50,7 +49,6 @@ exports.serve = (options) ->
     rendered = render() if isApp.test filename
 
   (req, res, next) ->
-    console.log 'start'
     rendered
       .then (result) ->
         res.end(result)
