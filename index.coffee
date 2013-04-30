@@ -14,7 +14,11 @@ relativize = (entry, requirement, extensions) ->
 exports.bundle = (options) ->
   promise = Q.defer()
   baseDir = dirname(resolve(options.entry))
-  b = browserify([options.entry], extensions: options.extensions)
+  b = browserify([options.entry])
+
+  if options.extensions?
+    for extension in options.extensions
+      b.extension(extension)
 
   if options.shims?
     shims = {}

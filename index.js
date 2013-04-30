@@ -23,18 +23,23 @@
   };
 
   exports.bundle = function(options) {
-    var b, baseDir, expose, k, promise, requirement, shims, transform, v, _i, _j, _len, _len1, _ref1, _ref2, _ref3;
+    var b, baseDir, expose, extension, k, promise, requirement, shims, transform, v, _i, _j, _k, _len, _len1, _len2, _ref1, _ref2, _ref3, _ref4;
 
     promise = Q.defer();
     baseDir = dirname(resolve(options.entry));
-    b = browserify([options.entry], {
-      extensions: options.extensions
-    });
+    b = browserify([options.entry]);
+    if (options.extensions != null) {
+      _ref1 = options.extensions;
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        extension = _ref1[_i];
+        b.extension(extension);
+      }
+    }
     if (options.shims != null) {
       shims = {};
-      _ref1 = options.shims;
-      for (k in _ref1) {
-        v = _ref1[k];
+      _ref2 = options.shims;
+      for (k in _ref2) {
+        v = _ref2[k];
         shims[k] = extend({}, v, {
           path: join(baseDir, v.path)
         });
@@ -42,16 +47,16 @@
       b = shim(b, shims);
     }
     if (options.transforms != null) {
-      _ref2 = options.transforms;
-      for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-        transform = _ref2[_i];
+      _ref3 = options.transforms;
+      for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
+        transform = _ref3[_j];
         b.transform(transform);
       }
     }
     if (options.requirements != null) {
-      _ref3 = options.requirements;
-      for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
-        requirement = _ref3[_j];
+      _ref4 = options.requirements;
+      for (_k = 0, _len2 = _ref4.length; _k < _len2; _k++) {
+        requirement = _ref4[_k];
         expose = relativize(options.entry, requirement);
         b.require(requirement, {
           expose: expose

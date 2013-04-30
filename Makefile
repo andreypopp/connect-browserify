@@ -8,5 +8,5 @@ publish:
 %.js: %.coffee
 	coffee --map -c $<
 
-example:
+example::
 	./example/app.coffee
