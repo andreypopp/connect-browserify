@@ -1,9 +1,8 @@
 {
   "name": "connect-browserify",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Connect/express middleware for serving apps to a browser with browserify",
   "main": "index.js",
-
   "dependencies": {
     "kew": "~0.1.6",
     "xtend": "~2.0.0",
@@ -12,7 +11,9 @@
     "browserify": "git://github.com/andreypopp/node-browserify#master",
     "browserify-shim": "~2.0.3"
   },
-
+  "devDependencies": {
+    "semver": ""
+  },
   "keywords": [
     "connect",
     "express",
@@ -21,12 +22,10 @@
     "assets",
     "middelware"
   ],
-
   "author": {
     "name": "Andrey Popp",
     "email": "8mayday@gmail.com",
     "url": "http://andreypopp.com"
   },
-
   "license": "MIT"
 }
