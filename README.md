@@ -33,6 +33,8 @@ app.use('/js/app.js', browserify.serve({
   insertGlobals: true,            // also supported and will be passed to
                                   // browserify bundle() calll
 
+  contentType: 'text/javascript', // Content-type header to use, by default
+                                  // this equals to 'application/javascript'
 
   extensions: ['.js', '.coffee'], // experimental option of a fork of
                                   // browserify at andreypopp/node-browserify,

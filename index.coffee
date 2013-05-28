@@ -46,6 +46,7 @@ exports.serve = (options) ->
   extensions = ['.js'].concat(options.extensions or [])
   isApp = ///(#{extensions.map((x) -> x.replace('.', '\\.')).join('|')})$///
   baseDir = dirname(resolve(options.entry))
+  contentType = options.contentType or 'application/javascript'
 
   rendered = render()
 
@@ -53,6 +54,7 @@ exports.serve = (options) ->
     rendered = render() if isApp.test filename
 
   (req, res, next) ->
+    res.setHeader('Content-type', contentType)
     rendered
       .then (result) ->
         res.end(result)

@@ -74,7 +74,7 @@
   };
 
   exports.serve = function(options) {
-    var baseDir, extensions, isApp, render, rendered;
+    var baseDir, contentType, extensions, isApp, render, rendered;
 
     render = function() {
       return exports.bundle(options);
@@ -84,6 +84,7 @@
       return x.replace('.', '\\.');
     }).join('|')) + ")$");
     baseDir = dirname(resolve(options.entry));
+    contentType = options.contentType || 'application/javascript';
     rendered = render();
     fs.watch(baseDir, {
       persistent: false
@@ -93,6 +94,7 @@
       }
     });
     return function(req, res, next) {
+      res.setHeader('Content-type', contentType);
       return rendered.then(function(result) {
         return res.end(result);
       }).fail(next);
