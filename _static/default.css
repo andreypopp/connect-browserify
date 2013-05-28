@@ -1,0 +1,651 @@
+@charset "UTF-8";
+/* normalize.css 2011-11-04T15:36 UTC - http://github.com/necolas/normalize.css */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block; }
+
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1; }
+
+audio:not([controls]) {
+  display: none; }
+
+[hidden] {
+  display: none; }
+
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%; }
+
+body {
+  margin: 0; }
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: sans-serif; }
+
+a:focus {
+  outline: thin dotted; }
+
+a:hover,
+a:active {
+  outline: 0; }
+
+h1 {
+  font-size: 2em; }
+
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+b,
+strong {
+  font-weight: bold; }
+
+blockquote {
+  margin: 1em 40px; }
+
+dfn {
+  font-style: italic; }
+
+mark {
+  background: #ff0;
+  color: #000; }
+
+pre,
+code,
+kbd,
+samp {
+  font-family: monospace, serif;
+  _font-family: 'courier new', monospace;
+  font-size: 1em; }
+
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word; }
+
+q {
+  quotes: none; }
+
+q:before,
+q:after {
+  content: '';
+  content: none; }
+
+small {
+  font-size: 75%; }
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+ul,
+ol {
+  margin-left: 0;
+  padding: 0 0 0 40px; }
+
+dd {
+  margin: 0 0 0 40px; }
+
+nav ul,
+nav ol {
+  list-style: none;
+  list-style-image: none; }
+
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic; }
+
+svg:not(:root) {
+  overflow: hidden; }
+
+figure {
+  margin: 0; }
+
+form {
+  margin: 0; }
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+legend {
+  border: 0;
+  *margin-left: -7px; }
+
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle; }
+
+button,
+input {
+  line-height: normal; }
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+  *overflow: visible; }
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0; }
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box; }
+
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+textarea {
+  overflow: auto;
+  vertical-align: top; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*
++---------------------------------------------------------------------+
+|        _                               _         _                  |
+|       | |_  _   _  _ __    ___  _ __  | |  __ _ | |_  ___           |
+|       | __|| | | || '_ \  / _ \| '_ \ | | / _` || __|/ _ \          |
+|       | |_ | |_| || |_) ||  __/| |_) || || (_| || |_|  __/          |
+|        \__| \__, || .__/  \___|| .__/ |_| \__,_| \__|\___|          |
+|             |___/ |_|          |_|                                  |
+|                                                                     |
+|                                                                     |
+| URL: http://typeplate.com                                           |
+| VERSION: 1.0.1                                                      |
+| Github: https://github.com/typePlate/typeplate.github.com           |
+| AUTHORS: Zachary Kain (@zakkain) & Dennis Gaebel (@gryghostvisuals) |
+| LICENSE: Creative Commmons                                          |
+| http://creativecommons.org/licenses/by/3.0                          |
+|                                                                     |
++---------------------------------------------------------------------+
+*/
+@font-face {
+  font-family: 'Museo Sans';
+  src: url("fonts/MuseoSans_500-webfont.eot");
+  src: url("fonts/MuseoSans_500-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/MuseoSans_500-webfont.woff") format("woff"), url("fonts/MuseoSans_500-webfont.ttf") format("truetype"), url("fonts/MuseoSans_500-webfont.svg#museo_sans_500regular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Ampersand";
+  src: local("Georgia"), local("Garamond"), local("Palatino"), local("Book Antiqua");
+  unicode-range: U+0026; }
+
+@font-face {
+  font-family: "Ampersand";
+  src: local("Georgia");
+  unicode-range: U+270C; }
+
+body {
+  word-wrap: break-word; }
+
+pre code {
+  word-wrap: normal; }
+
+/**
+ * Dropcap Sass @include
+ * Use the following Sass @include with any selector you feel necessary.
+ *
+	@include dropcap($float: left, $font-size: 4em, $font-family: inherit, $text-indent: 0, $margin: inherit, $padding: inherit, $color: inherit, $lineHeight: 1, $bg: transparent);
+ *
+ * Extend this object into your custom stylesheet.
+ *
+ */
+html, body {
+  font: normal 112.5%/1.65 "Museo Sans", sans-serif; }
+
+body {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  -o-hyphens: auto;
+  hyphens: auto;
+  color: #666666; }
+
+h1, h2, h3, h4, h5, h6 {
+  text-rendering: optimizeLegibility;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-top: 0; }
+  h1 .headerlink, h2 .headerlink, h3 .headerlink, h4 .headerlink, h5 .headerlink, h6 .headerlink {
+    vertical-align: super;
+    text-decoration: none; }
+
+.tera {
+  font-size: 117px;
+  font-size: 6.5rem;
+  margin-bottom: 0.25385rem; }
+
+.giga {
+  font-size: 90px;
+  font-size: 5rem;
+  margin-bottom: 0.33rem; }
+
+.mega {
+  font-size: 72px;
+  font-size: 4rem;
+  margin-bottom: 0.4125rem; }
+
+.alpha, h1 {
+  font-size: 60px;
+  font-size: 3.33333rem;
+  margin-bottom: 0.495rem; }
+
+.beta, h2 {
+  font-size: 24px;
+  font-size: 1.33333rem;
+  margin-bottom: 1.2375rem; }
+
+.gamma, h3 {
+  font-size: 21px;
+  font-size: 1.16667rem;
+  margin-bottom: 1.41429rem; }
+
+.delta, h4 {
+  font-size: 18px;
+  font-size: 1rem;
+  margin-bottom: 1.65rem; }
+
+.epsilon, h1 .headerlink, h2 .headerlink, h3 .headerlink, h4 .headerlink, h5 .headerlink, h6 .headerlink, h5 {
+  font-size: 16px;
+  font-size: 0.88889rem;
+  margin-bottom: 1.85625rem; }
+
+.zeta, h6 {
+  font-size: 16px;
+  font-size: 0.88889rem;
+  margin-bottom: 1.85625rem; }
+
+p {
+  margin: 0 0 1.5em; }
+
+abbr,
+acronym,
+blockquote,
+code,
+dir,
+kbd,
+listing,
+plaintext,
+q,
+samp,
+tt,
+var,
+xmp {
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  -o-hyphens: none;
+  hyphens: none; }
+
+.literal, pre, code {
+  white-space: -moz-pre-wrap;
+  white-space: pre-wrap;
+  font-size: 90%;
+  font-family: 'Menlo', 'Monaco', monospace; }
+
+pre {
+  margin: 0 auto;
+  width: 90%;
+  font-size: 80%; }
+
+/**
+ * Abbreviations Markup
+ *
+	<abbr title="hyper text markup language">HMTL</abbr>
+ *
+ * Extend this object into your markup.
+ *
+ */
+abbr {
+  font-variant: small-caps;
+  font-weight: 600;
+  text-transform: lowercase;
+  color: gray; }
+  abbr:hover {
+    cursor: help; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #222222; }
+
+/**
+ * Lining Definition Style Markup
+ *
+	<dl class="lining">
+		<dt><b></b></dt>
+		<dd></dd>
+	</dl>
+ *
+ * Extend this object into your markup.
+ *
+ */
+.lining dt,
+.lining dd {
+  display: inline;
+  margin: 0; }
+.lining dt + dt:before,
+.lining dd + dt:before {
+  content: "\A";
+  white-space: pre; }
+.lining dd + dd:before {
+  content: ", "; }
+.lining dd:before {
+  content: ": ";
+  margin-left: -0.2rem; }
+
+/**
+ * Dictionary Definition Style Markup
+ *
+	<dl class="dictionary-style">
+		<dt><b></b></dt>
+			<dd></dd>
+	</dl>
+ *
+ * Extend this object into your markup.
+ *
+ */
+.dictionary-style dt {
+  display: inline;
+  counter-reset: definitions; }
+  .dictionary-style dt + dt:before {
+    content: ", ";
+    margin-left: -0.2rem; }
+.dictionary-style dd {
+  display: block;
+  counter-increment: definitions; }
+  .dictionary-style dd:before {
+    content: counter(definitions, decimal) ". "; }
+
+/**
+ * Stats Tab Markup
+ *
+	<ul class="stats-tabs">
+		<li><a href="#">[value]<b>[name]</b></a></li>
+	</ul>
+ *
+ * Extend this object into your markup.
+ *
+ */
+.stats-tabs {
+  padding: 0; }
+  .stats-tabs li {
+    display: inline-block;
+    margin: 0 0.625rem 0 0;
+    padding: 0 0.625rem 0 0;
+    border-right: 0.125rem solid #cccccc; }
+    .stats-tabs li:last-child {
+      margin: 0;
+      padding: 0;
+      border: none; }
+    .stats-tabs li a {
+      display: inline-block;
+      font-size: 1.5rem;
+      font-weight: bold; }
+      .stats-tabs li a b {
+        display: block;
+        margin: 0.125rem 0 0 0;
+        font-size: 0.875rem;
+        font-weight: normal; }
+
+/**
+ * Blockquote Markup
+ *
+	<blockquote cite="">
+		<p>&Prime;&Prime;</p>
+		<cite>
+			<small><a href=""></a></small>
+		</cite>
+	</blockquote>
+ *
+ * Extend this object into your markup.
+ *
+ */
+/**
+ * Pull Quotes Markup
+ *
+	<aside class="pull-quote">
+		<blockquote>
+			<p></p>
+		</blockquote>
+	</aside>
+ *
+ * Extend this object into your custom stylesheet.
+ *
+ */
+.pull-quote {
+  position: relative;
+  padding: 1em; }
+  .pull-quote:before, .pull-quote:after {
+    height: 1em;
+    opacity: 0.15;
+    position: absolute;
+    font-size: 4em; }
+  .pull-quote:before {
+    content: '“';
+    top: 0;
+    left: 0; }
+  .pull-quote:after {
+    content: '”';
+    bottom: 0;
+    right: 0; }
+
+/**
+ * Figures Markup
+ *
+	<figure>
+		<figcaption>
+			<strong>Fig. 4.2 | </strong>Type Anatomy, an excerpt from Mark Boulton's book<cite title="http://designingfortheweb.co.uk/book/part3/part3_chapter11.php">"Designing for the Web"</cite>
+		</figcaption>
+	</figure>
+ *
+ * Extend this object into your markup.
+ *
+ */
+/**
+ * Footnote Markup : Replace 'X' with your unique number for each footnote
+ *
+	<article>
+		<p><sup><a href="#fn-itemX" id="fn-returnX"></a></sup></p>
+		<footer>
+			<ol class="foot-notes">
+				<li id="fn-itemX"><a href="#fn-returnX">↩</a></li>
+			</ol>
+		</footer>
+	</article>
+ *
+ * Extend this object into your markup.
+ *
+ */
+html, body, .main {
+  background: #e2e8ee; }
+
+body {
+  border-top: 5px solid #da9190; }
+
+.github-ribbon {
+  position: absolute;
+  top: 0;
+  right: 0; }
+
+.main {
+  font-size: 80%;
+  width: 700px;
+  margin: 0 auto;
+  padding: 40px 0; }
+  .main > .section > p:nth-child(2) {
+    position: relative;
+    top: -70px;
+    font-size: 90%;
+    text-align: center;
+    color: #ce6b69;
+    opacity: 0.8;
+    font-weight: bold; }
+  .main h1, .main h2, .main h3, .main h4, .main h5, .main h6 {
+    text-align: center;
+    margin: 1.6em 0;
+    color: #ce6b69; }
+    .main h1 .headerlink, .main h2 .headerlink, .main h3 .headerlink, .main h4 .headerlink, .main h5 .headerlink, .main h6 .headerlink {
+      visibility: hidden; }
+    .main h1:hover .headerlink, .main h2:hover .headerlink, .main h3:hover .headerlink, .main h4:hover .headerlink, .main h5:hover .headerlink, .main h6:hover .headerlink {
+      visibility: visible; }
+  .main h1 {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none; }
+    .main h1:hover > span > span {
+      color: #c14543;
+      text-shadow: none; }
+    .main h1:hover > span > span:nth-child(2n) {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+      color: #c14543; }
+    .main h1:hover > span > span:nth-child(3n) {
+      -webkit-transform: translateY(0px);
+      -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+      -o-transform: translateY(0px);
+      transform: translateY(0px); }
+    .main h1:hover > span > span:nth-child(3n+3) {
+      -webkit-transform: scale(1) rotate(0deg);
+      -moz-transform: scale(1) rotate(0deg);
+      -ms-transform: scale(1) rotate(0deg);
+      -o-transform: scale(1) rotate(0deg);
+      transform: scale(1) rotate(0deg); }
+    .main h1:hover > span > span:nth-child(5n+5) {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg); }
+    .main h1:hover > span > span:nth-child(7n) {
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1); }
+    .main h1:hover > span > span:nth-child(12n) {
+      font-size: 100%; }
+    .main h1:hover > span > span:nth-child(4n) {
+      color: #c14543; }
+    .main h1 > span {
+      white-space: nowrap; }
+      .main h1 > span > span {
+        color: rgba(193, 69, 67, 0.5);
+        display: inline-block;
+        text-shadow: 3px 3px 0 rgba(206, 107, 105, 0.4);
+        cursor: default;
+        pointer-events: none;
+        margin: 0 -2px; }
+        .main h1 > span > span:nth-child(2n) {
+          -webkit-transform: rotate(-6deg);
+          -moz-transform: rotate(-6deg);
+          -ms-transform: rotate(-6deg);
+          -o-transform: rotate(-6deg);
+          transform: rotate(-6deg);
+          color: rgba(193, 69, 67, 0.7); }
+        .main h1 > span > span:nth-child(3n) {
+          -webkit-transform: translateY(20px);
+          -moz-transform: translateY(20px);
+          -ms-transform: translateY(20px);
+          -o-transform: translateY(20px);
+          transform: translateY(20px); }
+        .main h1 > span > span:nth-child(4n) {
+          color: rgba(193, 69, 67, 0.4); }
+        .main h1 > span > span:nth-child(3n+3) {
+          -webkit-transform: scale(1.2) rotate(5deg);
+          -moz-transform: scale(1.2) rotate(5deg);
+          -ms-transform: scale(1.2) rotate(5deg);
+          -o-transform: scale(1.2) rotate(5deg);
+          transform: scale(1.2) rotate(5deg); }
+        .main h1 > span > span:nth-child(5n+5) {
+          -webkit-transform: rotate(-3deg);
+          -moz-transform: rotate(-3deg);
+          -ms-transform: rotate(-3deg);
+          -o-transform: rotate(-3deg);
+          transform: rotate(-3deg); }
+        .main h1 > span > span:nth-child(7n) {
+          -webkit-transform: scale(0.8);
+          -moz-transform: scale(0.8);
+          -ms-transform: scale(0.8);
+          -o-transform: scale(0.8);
+          transform: scale(0.8); }
+        .main h1 > span > span:nth-child(12n) {
+          font-size: 90%; }
+        .main h1 > span > span.x {
+          display: none; }
+  .main a {
+    color: #ce6b69;
+    text-decoration: none; }
+    .main a:hover {
+      color: #829ab5; }
+  .main .section > div {
+    margin-bottom: 1.5em; }
+  .main .literal {
+    white-space: nowrap;
+    background: #eeeeec;
+    padding: 0 0.3em;
+    color: #6280a2; }
+  .main .contents ul {
+    list-style-type: none; }
+  .main footer {
+    font-size: 80%;
+    margin: 5em 0;
+    text-align: center;
+    opacity: 0.3; }

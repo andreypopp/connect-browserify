@@ -1,0 +1,136 @@
+@import normalize
+@import typeplate
+@import compass/css3
+@import compass/css3/user-interface
+
+$width: 700px
+$bg: lighten(#829AB5, 30%)
+$pre-bg: lighten(#D6D5D1, 10%)
+$a-color: lighten(#C14543, 10%)
+$a-color-hover: #829AB5
+$header-color: #C14543
+
+@mixin fancy
+  cursor: pointer
+  +user-select(none)
+
+  &:hover
+    & > span > span
+      color: $header-color
+      text-shadow: none
+    & > span > span:nth-child(2n)
+      +transform(rotate(0deg))
+      color: $header-color
+    & > span > span:nth-child(3n)
+      +transform(translateY(0px))
+    & > span > span:nth-child(3n+3)
+      +transform(scale(1) rotate(0deg))
+    & > span > span:nth-child(5n+5)
+      +transform(rotate(0deg))
+    & > span > span:nth-child(7n)
+      +transform(scale(1))
+    & > span > span:nth-child(12n)
+      font-size: 100%
+    & > span > span:nth-child(4n)
+      color: $header-color
+
+  & > span
+
+    white-space: nowrap
+
+    & > span
+      color: rgba($header-color, 0.5)
+      display: inline-block
+      text-shadow: 3px 3px 0 rgba(lighten($header-color, 10%), 0.4)
+      cursor: default
+      pointer-events: none
+      margin: 0 -2px
+
+      &:nth-child(2n)
+        +transform(rotate(-6deg))
+        color: rgba($header-color, 0.7)
+
+      &:nth-child(3n)
+        +transform(translateY(20px))
+
+      &:nth-child(4n)
+        color: rgba($header-color, 0.4)
+
+      &:nth-child(3n+3)
+        +transform(scale(1.2) rotate(5deg))
+
+      &:nth-child(5n+5)
+        +transform(rotate(-3deg))
+
+      &:nth-child(7n)
+        +transform(scale(0.8))
+
+      &:nth-child(12n)
+        font-size: 90%
+
+      &.x
+        display: none
+
+html, body, .main
+  background: $bg
+
+body
+  border-top: 5px solid lighten($header-color, 20%)
+
+.github-ribbon
+  position: absolute
+  top: 0
+  right: 0
+
+.main
+  font-size: 80%
+  width: $width
+  margin: 0 auto
+  padding: 40px 0
+
+  & > .section > p:nth-child(2)
+    position: relative
+    top: -#{$alpha+10}px
+    font-size: 90%
+    text-align: center
+    color: lighten($header-color, 10%)
+    opacity: 0.8
+    font-weight: bold
+
+  h1, h2, h3, h4, h5, h6
+    text-align: center
+    margin: 1.6em 0
+    color: lighten($header-color, 10%)
+    .headerlink
+      visibility: hidden
+    &:hover
+      .headerlink
+        visibility: visible
+
+  h1
+    +fancy
+
+  a
+    color: $a-color
+    text-decoration: none
+    &:hover
+      color: $a-color-hover
+
+  .section > div
+    margin-bottom: 1.5em
+
+  .literal
+    white-space: nowrap
+    background: $pre-bg
+    padding: 0 0.3em
+    color: darken($bg, 40%)
+
+  .contents
+    ul
+      list-style-type: none
+
+  footer
+    font-size: 80%
+    margin: 5em 0
+    text-align: center
+    opacity: 0.3

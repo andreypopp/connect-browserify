@@ -1,0 +1,81 @@
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>connect-browserify</title>
+<link rel="stylesheet" href="_static/default.css" type="text/css" />
+<script src="_static/jquery.js"></script>
+<script src="_static/jquery.lettering.js"></script>
+<script>
+  $(function() {
+    var $headers = $('h1');
+    $headers.lettering('words').children('span').lettering();
+    $headers.children('span').children('span:contains("¶")').remove();
+  });
+</script>
+<div class="main">
+  
+  <div class="section" id="connect-browserify">
+<h1>connect-browserify<a class="headerlink" href="#connect-browserify" title="Permalink to this headline">¶</a></h1>
+<p>Browserify middleware for Connect/Express apps</p>
+<p>Install from <tt class="docutils literal"><span class="pre">npm</span></tt>:</p>
+<div class="highlight-python"><pre>% npm install connect-browserify</pre>
+</div>
+<p>and then use in your connect/express app like this:</p>
+<div class="highlight-python"><pre>express = require('express');
+browserify = require('connect-browserify');
+coffeeify = require('coffeeify');
+
+app = express();
+app.use('/js/app.js', browserify.serve({
+  entry: 'src/app.js',            // entry for your application
+
+  requirements: ['src/views.js'], // additional modules to require, will
+                                  // be exposed under id relative to
+                                  // entry, e.g. './views' in current
+                                  // example
+
+  shims: {                        // shims for non-CommonJS components
+    jquery: {                     // uses browserify-shim package,
+      path: 'src/vendor/jquery',  // see its docs for details
+      exports: '$',
+      depends: []
+    }
+  },
+
+  watch: true,                    // watch entry's directory for changes and
+                                  // rebuild
+
+  transforms: [coffeeify],        // transforms to use
+
+  debug: true,                    // see browserify docs, other options are
+  insertGlobals: true,            // also supported and will be passed to
+                                  // browserify bundle() calll
+
+  contentType: 'text/javascript', // Content-type header to use, by default
+                                  // this equals to 'application/javascript'
+
+  extensions: ['.js', '.coffee'], // experimental option of a fork of
+                                  // browserify at andreypopp/node-browserify,
+                                  // allows to consider non-js files as
+                                  // CommonJS modules
+  })
+);
+
+app.listen(3000);</pre>
+</div>
+<p>This middleware will start watching directory of entry file for changes, rebuild
+bundle accordingly and caching the result for future requests. You can prevent
+this behaviour by passing <tt class="docutils literal"><span class="pre">watch:</span> <span class="pre">false</span></tt> as <tt class="docutils literal"><span class="pre">options</span></tt> key.</p>
+<p>You should never use this middleware in production — use nginx for serving
+pre-built bundles to a browser.</p>
+</div>
+
+
+  <footer>
+    <p>connect-browserify 0.4.0</p>
+    <p>Generated using Sphinx 1.2b1</p>
+  </footer>
+</div>
+</div>
+<a class="github-ribbon" href="https://github.com/andreypopp/connect-browserify">
+  <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
+</a>
