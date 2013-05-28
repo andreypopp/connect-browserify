@@ -74,7 +74,7 @@
   };
 
   exports.serve = function(options) {
-    var baseDir, contentType, extensions, isApp, render, rendered;
+    var baseDir, contentType, extensions, isApp, render, rendered, watch;
 
     render = function() {
       return exports.bundle(options);
@@ -85,14 +85,17 @@
     }).join('|')) + ")$");
     baseDir = dirname(resolve(options.entry));
     contentType = options.contentType || 'application/javascript';
+    watch = options.watch === void 0 ? true : options.watch;
     rendered = render();
-    fs.watch(baseDir, {
-      persistent: false
-    }, function(ev, filename) {
-      if (isApp.test(filename)) {
-        return rendered = render();
-      }
-    });
+    if (watch) {
+      fs.watch(baseDir, {
+        persistent: false
+      }, function(ev, filename) {
+        if (isApp.test(filename)) {
+          return rendered = render();
+        }
+      });
+    }
     return function(req, res, next) {
       res.setHeader('Content-type', contentType);
       return rendered.then(function(result) {

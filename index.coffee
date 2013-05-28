@@ -47,11 +47,13 @@ exports.serve = (options) ->
   isApp = ///(#{extensions.map((x) -> x.replace('.', '\\.')).join('|')})$///
   baseDir = dirname(resolve(options.entry))
   contentType = options.contentType or 'application/javascript'
+  watch = if options.watch is undefined then true else options.watch
 
   rendered = render()
 
-  fs.watch baseDir, {persistent: false}, (ev, filename) ->
-    rendered = render() if isApp.test filename
+  if watch
+    fs.watch baseDir, {persistent: false}, (ev, filename) ->
+      rendered = render() if isApp.test filename
 
   (req, res, next) ->
     res.setHeader('Content-type', contentType)

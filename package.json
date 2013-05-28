@@ -12,7 +12,8 @@
     "browserify-shim": "~2.0.3"
   },
   "devDependencies": {
-    "semver": ""
+    "semver": "",
+    "sphinx-npm": ""
   },
   "keywords": [
     "connect",

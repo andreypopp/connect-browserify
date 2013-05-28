@@ -1,3 +1,6 @@
+REPO = $(shell cat .git/config | grep url | xargs echo | sed -E 's/^url = //g')
+REPONAME = $(shell echo $(REPO) | sed -E 's_.+:([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]+)\.git_\1/\2_')
+
 build: index.js
 
 test:
@@ -35,3 +38,20 @@ define release
   git commit -m "release $$NEXT_VERSION" -- package.json && \
   git tag "$$NEXT_VERSION" -m "release $$NEXT_VERSION"
 endef
+
+docs::
+	@sphinx-npm \
+		-C -E -a \
+		-Dhtml_theme_path=. \
+		-Dhtml_theme=noisy \
+		-Dmaster_doc=index \
+		-Agithub_repo='$(REPONAME)' \
+		./docs ./docs/build
+
+docs-push::
+	rm -rf ./docs/build
+	$(MAKE) docs
+	touch ./docs/build/.nojekyll
+	(cd ./docs/build;\
+		git init && git add . && git ci -m 'docs' &&\
+		git push -f $(REPO) master:gh-pages)
