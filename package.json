@@ -6,9 +6,9 @@
   "dependencies": {
     "kew": "~0.1.6",
     "xtend": "~2.0.0",
-    "browser-resolve": "git://github.com/andreypopp/node-browser-resolve#master",
+    "browser-resolve": "~1.1.0",
     "module-deps": "git://github.com/andreypopp/module-deps#master",
-    "browserify": "git://github.com/andreypopp/node-browserify#master",
+    "browserify": "git://github.com/andreypopp/node-browserify#masterx",
     "browserify-shim": "~2.0.3"
   },
   "devDependencies": {
