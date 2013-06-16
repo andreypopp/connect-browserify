@@ -35,6 +35,9 @@ exports.bundle = (options) ->
       expose = relativize(options.entry, requirement)
       b.require(requirement, expose: expose)
 
+  if options.bundle?
+    bundle = options.bundle(bundle)
+
   b.bundle options, (err, result) ->
     if err then promise.reject(err) else promise.resolve(result)
 

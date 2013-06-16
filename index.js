@@ -23,7 +23,7 @@
   };
 
   exports.bundle = function(options) {
-    var b, baseDir, expose, extension, k, promise, requirement, shims, transform, v, _i, _j, _k, _len, _len1, _len2, _ref1, _ref2, _ref3, _ref4;
+    var b, baseDir, bundle, expose, extension, k, promise, requirement, shims, transform, v, _i, _j, _k, _len, _len1, _len2, _ref1, _ref2, _ref3, _ref4;
 
     promise = Q.defer();
     baseDir = dirname(resolve(options.entry));
@@ -62,6 +62,9 @@
           expose: expose
         });
       }
+    }
+    if (options.bundle != null) {
+      bundle = options.bundle(bundle);
     }
     b.bundle(options, function(err, result) {
       if (err) {

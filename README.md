@@ -29,6 +29,11 @@ app.use('/js/app.js', browserify.serve({
 
   transforms: [coffeeify],        // transforms to use
 
+  bundle: function(bundle) {
+    // configure bundle
+    return bundle
+  },
+
   debug: true,                    // see browserify docs, other options are
   insertGlobals: true,            // also supported and will be passed to
                                   // browserify bundle() calll
