@@ -11,7 +11,29 @@ relativize = (entry, requirement, extensions) ->
   expose = expose.replace(/\.[a-z_\-]+$/, '')
   "./#{expose}"
 
-exports.bundle = (options) ->
+module.exports = serve = (options) ->
+  render = -> exports.bundle(options)
+
+  extensions = ['.js'].concat(options.extensions or [])
+  isApp = ///(#{extensions.map((x) -> x.replace('.', '\\.')).join('|')})$///
+  baseDir = dirname(resolve(options.entry))
+  contentType = options.contentType or 'application/javascript'
+  watch = if options.watch is undefined then true else options.watch
+
+  rendered = render()
+
+  if watch
+    fs.watch baseDir, {persistent: false}, (ev, filename) ->
+      rendered = render() if isApp.test filename
+
+  (req, res, next) ->
+    res.setHeader('Content-type', contentType)
+    rendered
+      .then (result) ->
+        res.end(result)
+      .fail next
+
+serve.bundle = (options) ->
   promise = Q.defer()
   baseDir = dirname(resolve(options.entry))
   b = browserify([options.entry])
@@ -43,24 +65,4 @@ exports.bundle = (options) ->
 
   promise
 
-exports.serve = (options) ->
-  render = -> exports.bundle(options)
-
-  extensions = ['.js'].concat(options.extensions or [])
-  isApp = ///(#{extensions.map((x) -> x.replace('.', '\\.')).join('|')})$///
-  baseDir = dirname(resolve(options.entry))
-  contentType = options.contentType or 'application/javascript'
-  watch = if options.watch is undefined then true else options.watch
-
-  rendered = render()
-
-  if watch
-    fs.watch baseDir, {persistent: false}, (ev, filename) ->
-      rendered = render() if isApp.test filename
-
-  (req, res, next) ->
-    res.setHeader('Content-type', contentType)
-    rendered
-      .then (result) ->
-        res.end(result)
-      .fail next
+serve.serve = serve
