@@ -12,7 +12,7 @@ relativize = (entry, requirement, extensions) ->
   "./#{expose}"
 
 module.exports = serve = (options) ->
-  render = -> exports.bundle(options)
+  render = -> serve.bundle(options)
 
   extensions = ['.js'].concat(options.extensions or [])
   isApp = ///(#{extensions.map((x) -> x.replace('.', '\\.')).join('|')})$///
