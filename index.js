@@ -29,7 +29,6 @@
     contentType = options.contentType || 'application/javascript';
     rendered = void 0;
     bundle = function() {
-      console.log('bundle');
       rendered = Q.defer();
       return b.bundle(options, function(err, result) {
         if (err) {
@@ -41,7 +40,6 @@
     };
     bundle();
     if (options.watch !== false) {
-      console.log('watching');
       w = watchify(b);
       w.on('update', bundle);
     }
