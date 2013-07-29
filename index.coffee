@@ -3,6 +3,7 @@ fs = require 'fs'
 
 Q = require 'kew'
 browserify = require 'browserify'
+watchify = require 'watchify'
 shim = require 'browserify-shim'
 extend = require 'xtend'
 
@@ -12,19 +13,21 @@ relativize = (entry, requirement, extensions) ->
   "./#{expose}"
 
 module.exports = serve = (options) ->
-  render = -> serve.bundle(options)
-
-  extensions = ['.js'].concat(options.extensions or [])
-  isApp = ///(#{extensions.map((x) -> x.replace('.', '\\.')).join('|')})$///
-  baseDir = dirname(resolve(options.entry))
+  b = serve.bundle(options)
   contentType = options.contentType or 'application/javascript'
-  watch = if options.watch is undefined then true else options.watch
 
-  rendered = render()
+  rendered = undefined
 
-  if watch
-    fs.watch baseDir, {persistent: false}, (ev, filename) ->
-      rendered = render() if isApp.test filename
+  bundle = ->
+    rendered = Q.defer()
+    b.bundle options, (err, result) ->
+      if err then rendered.reject(err) else rendered.resolve(result)
+
+  bundle()
+
+  unless options.watch == false
+    w = watchify(b)
+    w.on 'update', bundle
 
   (req, res, next) ->
     res.setHeader('Content-type', contentType)
@@ -34,9 +37,9 @@ module.exports = serve = (options) ->
       .fail next
 
 serve.bundle = (options) ->
-  promise = Q.defer()
   baseDir = dirname(resolve(options.entry))
-  b = browserify([options.entry])
+  b = browserify(entries: [options.entry])
+  b.delay = options.bundleDelay or 300
 
   if options.extensions?
     for extension in options.extensions
@@ -60,9 +63,6 @@ serve.bundle = (options) ->
   if options.bundle?
     bundle = options.bundle(bundle)
 
-  b.bundle options, (err, result) ->
-    if err then promise.reject(err) else promise.resolve(result)
-
-  promise
+  b
 
 serve.serve = serve

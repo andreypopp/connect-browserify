@@ -4,12 +4,11 @@
   "description": "Connect/express middleware for serving apps to a browser with browserify",
   "main": "index.js",
   "dependencies": {
-    "kew": "~0.1.6",
+    "kew": "~0.1.7",
     "xtend": "~2.0.0",
-    "browser-resolve": "~1.1.0",
-    "module-deps": "git://github.com/andreypopp/module-deps#master",
-    "browserify": "git://github.com/andreypopp/node-browserify#masterx",
-    "browserify-shim": "~2.0.3"
+    "browserify": "git://github.com/andreypopp/node-browserify#master",
+    "browserify-shim": "~2.0.3",
+    "watchify": "~0.1.0"
   },
   "devDependencies": {
     "semver": "",
