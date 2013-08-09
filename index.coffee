@@ -12,28 +12,20 @@ relativize = (entry, requirement, extensions) ->
   expose = expose.replace(/\.[a-z_\-]+$/, '')
   "./#{expose}"
 
-once = (func) ->
-  called = false
-  (args...) ->
-    return if called
-    called = true
-    func.call(this, args...)
-
 module.exports = serve = (options) ->
-  b = serve.bundle(options)
   contentType = options.contentType or 'application/javascript'
 
   rendered = undefined
 
   bundle = ->
     rendered = Q.defer()
-    b.bundle options, once (err, result) ->
+    serve.bundle(options).bundle options, (err, result) ->
       if err then rendered.reject(err) else rendered.resolve(result)
 
   bundle()
 
   unless options.watch == false
-    w = watchify(b)
+    w = watchify serve.bundle(options)
     w.on 'update', bundle
 
   (req, res, next) ->
