@@ -21,18 +21,19 @@ once = (func) ->
 
 module.exports = serve = (options) ->
   contentType = options.contentType or 'application/javascript'
+  b = serve.bundle(options)
 
   rendered = undefined
 
   bundle = ->
     rendered = Q.defer()
-    serve.bundle(options).bundle options, once (err, result) ->
+    b.bundle options, once (err, result) ->
       if err then rendered.reject(err) else rendered.resolve(result)
 
   bundle()
 
   unless options.watch == false
-    w = watchify serve.bundle(options)
+    w = watchify b
     w.on 'update', bundle
 
   (req, res, next) ->

@@ -42,13 +42,14 @@
   };
 
   module.exports = serve = function(options) {
-    var bundle, contentType, rendered, w;
+    var b, bundle, contentType, rendered, w;
 
     contentType = options.contentType || 'application/javascript';
+    b = serve.bundle(options);
     rendered = void 0;
     bundle = function() {
       rendered = Q.defer();
-      return serve.bundle(options).bundle(options, once(function(err, result) {
+      return b.bundle(options, once(function(err, result) {
         if (err) {
           return rendered.reject(err);
         } else {
@@ -58,7 +59,7 @@
     };
     bundle();
     if (options.watch !== false) {
-      w = watchify(serve.bundle(options));
+      w = watchify(b);
       w.on('update', bundle);
     }
     return function(req, res, next) {
