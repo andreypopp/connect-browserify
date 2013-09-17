@@ -19,6 +19,9 @@ once = (func) ->
     called = true
     func.call(this, args...)
 
+isBrowserify = (x) ->
+  x && (typeof x == 'object') and (typeof x.bundle == 'function')
+
 module.exports = serve = (options) ->
   contentType = options.contentType or 'application/javascript'
   b = serve.bundle(options)
@@ -45,12 +48,12 @@ module.exports = serve = (options) ->
 
 serve.bundle = (options) ->
   baseDir = dirname(resolve(options.entry))
-  b = browserify(entries: [options.entry])
-  b.delay = options.bundleDelay or 300
 
-  if options.extensions?
-    for extension in options.extensions
-      b.extension(extension)
+  b = browserify
+    entries: [options.entry]
+    extensions: options.extensions
+
+  b.delay = options.bundleDelay or 300
 
   if options.shims?
     shims = {}

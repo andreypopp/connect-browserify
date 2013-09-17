@@ -6,7 +6,7 @@
   "dependencies": {
     "kew": "~0.1.7",
     "xtend": "~2.0.0",
-    "browserify": "git://github.com/andreypopp/node-browserify#master",
+    "browserify": "~2.31.0",
     "browserify-shim": "~2.0.3",
     "watchify": "~0.1.0"
   },
