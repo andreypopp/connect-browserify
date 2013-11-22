@@ -1,15 +1,20 @@
+BIN = node_modules/.bin
 REPO = $(shell cat .git/config | grep url | xargs echo | sed -E 's/^url = //g')
 REPONAME = $(shell echo $(REPO) | sed -E 's_.+:([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]+)\.git_\1/\2_')
 
 build: index.js
 
 test:
+	@$(BIN)/mocha --compilers coffee:coffee-script -R spec specs/*.coffee
 
 link install:
 	@npm $@
 
+clean:
+	rm -f *.js *.map
+
 %.js: %.coffee
-	coffee --map -c $<
+	$(BIN)/coffee -c $<
 
 example::
 	./example/app.coffee

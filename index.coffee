@@ -1,7 +1,7 @@
 {dirname, join, resolve, relative} = require 'path'
 fs = require 'fs'
 
-Q = require 'kew'
+kew = require 'kew'
 browserify = require 'browserify'
 watchify = require 'watchify'
 shim = require 'browserify-shim'
@@ -22,14 +22,25 @@ once = (func) ->
 isBrowserify = (x) ->
   x && (typeof x == 'object') and (typeof x.bundle == 'function')
 
-module.exports = serve = (options) ->
+isString = (x) ->
+  Object::toString.call(x) == '[object String]'
+
+module.exports = serve = (options, maybeOptions = {}) ->
   contentType = options.contentType or 'application/javascript'
-  b = serve.bundle(options)
+
+  if isBrowserify(options)
+    b = options
+    options = maybeOptions
+  else if isString(options)
+    b = serve.bundle(entry: options)
+    options = maybeOptions
+  else
+    b = serve.bundle(options)
 
   rendered = undefined
 
   bundle = ->
-    rendered = Q.defer()
+    rendered = kew.defer()
     b.bundle options, once (err, result) ->
       if err then rendered.reject(err) else rendered.resolve(result)
 
