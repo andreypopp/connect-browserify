@@ -29,22 +29,21 @@ app.use('/js/app.js', browserify.serve({
 
   transforms: [coffeeify],        // transforms to use
 
-  bundle: function(bundle) {
+  bundle: function(bundle) {      // optional, configure browserify instance
     // configure bundle
     return bundle
   },
 
-  debug: true,                    // see browserify docs, other options are
-  insertGlobals: true,            // also supported and will be passed to
-                                  // browserify bundle() calll
+  contentType: 'text/javascript', // optional, Content-type header to use, by
+                                  // default this equals to 'application/javascript'
 
-  contentType: 'text/javascript', // Content-type header to use, by default
-                                  // this equals to 'application/javascript'
-
-  extensions: ['.js', '.coffee'], // experimental option of a fork of
-                                  // browserify at andreypopp/node-browserify,
-                                  // allows to consider non-js files as
+  extensions: ['.js', '.coffee'], // to consider non-js files as
                                   // CommonJS modules
+
+  debug: true,                    // see browserify docs, other options are
+  insertGlobals: true             // also supported and will be passed to
+                                  // browserify bundle() call
+
   })
 );
 
