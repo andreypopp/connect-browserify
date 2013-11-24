@@ -6,9 +6,9 @@ Connect/express middelware for serving front-end applications with
 Basic usage is as follows:
 
 ```javascript
-express = require('express');
-browserify = require('connect-browserify');
-coffeeify = require('coffeeify');
+var express = require('express');
+var browserify = require('connect-browserify');
+var coffeeify = require('coffeeify');
 
 app = express();
 app.use('/js/app.js', browserify.serve({
