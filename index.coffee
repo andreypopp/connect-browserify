@@ -4,7 +4,6 @@ fs = require 'fs'
 kew = require 'kew'
 browserify = require 'browserify'
 watchify = require 'watchify'
-shim = require 'browserify-shim'
 extend = require 'xtend'
 
 relativize = (entry, requirement, extensions) ->
@@ -40,9 +39,8 @@ module.exports = serve = (options, maybeOptions = {}) ->
   rendered = undefined
 
   bundle = ->
-    rendered = kew.defer()
-    b.bundle options, once (err, result) ->
-      if err then rendered.reject(err) else rendered.resolve(result)
+    localRendered = rendered = kew.defer()
+    b.bundle options, once(localRendered.makeNodeResolver())
 
   bundle()
 
@@ -65,12 +63,6 @@ serve.bundle = (options) ->
     extensions: options.extensions
 
   b.delay = options.bundleDelay or 300
-
-  if options.shims?
-    shims = {}
-    for k, v of options.shims
-      shims[k] = extend {}, v, {path: join(baseDir, v.path)}
-    b = shim(b, shims)
 
   if options.transforms?
     for transform in options.transforms

@@ -8,10 +8,9 @@ Basic usage is as follows:
 ```javascript
 var express = require('express');
 var browserify = require('connect-browserify');
-var coffeeify = require('coffeeify');
 
 app = express();
-app.use('/js/app.js', browserify.serve({
+app.use('/js/app.js', browserify({
   entry: 'src/app.js',            // entry for your application
 
   requirements: ['src/views.js'], // additional modules to require, will
@@ -19,15 +18,7 @@ app.use('/js/app.js', browserify.serve({
                                   // entry, e.g. './views' in current
                                   // example
 
-  shims: {                        // shims for non-CommonJS components
-    jquery: {                     // uses browserify-shim package,
-      path: 'src/vendor/jquery',  // see its docs for details
-      exports: '$',
-      depends: []
-    }
-  },
-
-  transforms: [coffeeify],        // transforms to use
+  transforms: ['coffeeify'],        // transforms to use
 
   bundle: function(bundle) {      // optional, configure browserify instance
     // configure bundle
@@ -40,12 +31,8 @@ app.use('/js/app.js', browserify.serve({
   extensions: ['.js', '.coffee'], // to consider non-js files as
                                   // CommonJS modules
 
-  debug: true,                    // see browserify docs, other options are
-  insertGlobals: true             // also supported and will be passed to
-                                  // browserify bundle() call
-
-  })
-);
+  debug: true                     // see browserify docs, other options are
+}));
 
 app.listen(3000);
 ```
