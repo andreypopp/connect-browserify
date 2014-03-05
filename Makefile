@@ -1,8 +1,6 @@
 BIN = node_modules/.bin
 PATH := $(BIN):$(PATH)
 
-build: index.js
-
 test:
 	@mocha --compilers coffee:coffee-script -R spec specs/*.coffee
 
@@ -18,13 +16,13 @@ clean:
 example::
 	./example/app.coffee
 
-release-patch: build test
+release-patch: test
 	@$(call release,patch)
 
-release-minor: build test
+release-minor: test
 	@$(call release,minor)
 
-release-major: build test
+release-major: test
 	@$(call release,major)
 
 publish:
