@@ -1,11 +1,10 @@
 BIN = node_modules/.bin
-REPO = $(shell cat .git/config | grep url | xargs echo | sed -E 's/^url = //g')
-REPONAME = $(shell echo $(REPO) | sed -E 's_.+:([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]+)\.git_\1/\2_')
+PATH := $(BIN):$(PATH)
 
 build: index.js
 
 test:
-	@$(BIN)/mocha --compilers coffee:coffee-script -R spec specs/*.coffee
+	@mocha --compilers coffee:coffee-script -R spec specs/*.coffee
 
 link install:
 	@npm $@
@@ -14,7 +13,7 @@ clean:
 	rm -f *.js *.map
 
 %.js: %.coffee
-	$(BIN)/coffee -c $<
+	coffee -c $<
 
 example::
 	./example/app.coffee
@@ -33,30 +32,5 @@ publish:
 	npm publish
 
 define release
-	VERSION=`node -pe "require('./package.json').version"` && \
-	NEXT_VERSION=`node -pe "require('semver').inc(\"$$VERSION\", '$(1)')"` && \
-  node -e "\
-  	var j = require('./package.json');\
-  	j.version = \"$$NEXT_VERSION\";\
-  	var s = JSON.stringify(j, null, 2);\
-  	require('fs').writeFileSync('./package.json', s);" && \
-  git commit -m "release $$NEXT_VERSION" -- package.json && \
-  git tag "$$NEXT_VERSION" -m "release $$NEXT_VERSION"
+	npm version $(1)
 endef
-
-docs::
-	@sphinx-npm \
-		-C -E -a \
-		-Dhtml_theme_path=. \
-		-Dhtml_theme=noisy \
-		-Dmaster_doc=index \
-		-Agithub_repo='$(REPONAME)' \
-		./docs ./docs/build
-
-docs-push::
-	rm -rf ./docs/build
-	$(MAKE) docs
-	touch ./docs/build/.nojekyll
-	(cd ./docs/build;\
-		git init && git add . && git ci -m 'docs' &&\
-		git push -f $(REPO) master:gh-pages)
