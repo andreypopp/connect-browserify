@@ -1,6 +1,3 @@
-var watchify, _ref,
-  __slice = [].slice;
-
 var path        = require('path');
 var dirname     = path.dirname;
 var join        = path.join;
