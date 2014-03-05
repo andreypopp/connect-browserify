@@ -63,14 +63,9 @@
     }
     rendered = void 0;
     bundle = function() {
-      rendered = kew.defer();
-      return b.bundle(options, once(function(err, result) {
-        if (err) {
-          return rendered.reject(err);
-        } else {
-          return rendered.resolve(result);
-        }
-      }));
+      var localRendered;
+      localRendered = rendered = kew.defer();
+      return b.bundle(options, once(localRendered.makeNodeResolver()));
     };
     bundle();
     if (options.watch !== false) {
