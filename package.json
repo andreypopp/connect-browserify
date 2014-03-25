@@ -7,7 +7,7 @@
     "kew": "~0.1.7",
     "xtend": "~2.0.0",
     "browserify": "3.x.x",
-    "watchify": "0.5.2"
+    "watchify": "~0.6.3"
   },
   "devDependencies": {
     "semver": "",
