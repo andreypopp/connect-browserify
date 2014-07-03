@@ -4,20 +4,17 @@ PATH := $(BIN):$(PATH)
 test:
 	@mocha -R spec specs/*.js
 
-link install:
-	@npm $@
-
 lint:
 	@eslint index.js specs/*.js
+
+link install:
+	@npm $@
 
 clean:
 	rm -f *.js *.map
 
-%.js: %.coffee
-	coffee -c $<
-
 example::
-	./example/app.coffee
+	./example/app.js
 
 release-patch: lint test
 	@$(call release,patch)
