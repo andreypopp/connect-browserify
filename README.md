@@ -25,6 +25,11 @@ app.use('/js/app.js', browserify({
     return bundle
   },
 
+  pipes: function(stream) {       // optional, apply post-bundle-transforms
+    return stream                 // Receives the browserify bundle stream
+      .pipe(uglifyStream);        // Must return another stream
+  },
+
   contentType: 'text/javascript', // optional, Content-type header to use, by
                                   // default this equals to 'application/javascript'
 

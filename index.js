@@ -5,6 +5,7 @@ var dirname     = path.dirname;
 var relative    = path.relative;
 
 var Promise     = require('bluebird');
+var concat      = require('concat-stream');
 var browserify  = require('browserify');
 var watchify    = require('watchify');
 
@@ -12,18 +13,6 @@ function relativize(entry, requirement) {
   var expose = relative(dirname(entry), requirement);
   expose = expose.replace(/\.[a-z_\-]+$/, '');
   return "./" + expose;
-}
-
-function once(func) {
-  var called = false;
-
-  return function() {
-    if (called) {
-      return;
-    }
-    called = true;
-    func.apply(this, arguments);
-  };
 }
 
 function isBrowserify(x) {
@@ -43,6 +32,7 @@ function serve(options, maybeOptions) {
   }
 
   var contentType = options.contentType || 'application/javascript';
+  var pipes = options.pipes || function(x) { return x; };
 
   if (isBrowserify(options)) {
     b = options;
@@ -56,13 +46,9 @@ function serve(options, maybeOptions) {
 
   function make() {
     rendered = new Promise(function(resolve, reject) {
-      b.bundle(options, once(function(err, result) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      }));
+      var output = pipes(b.bundle(options));
+      output.on('error', reject);
+      output.pipe(concat( { encoding: 'string' }, resolve));
     });
   }
 

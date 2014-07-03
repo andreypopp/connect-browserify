@@ -4,12 +4,17 @@ var path        = require('path');
 var assert      = require('assert');
 var express     = require('express');
 var req         = require('supertest');
+var through     = require('through');
 var browserify  = require('browserify');
 var middleware  = require('../index');
 
 function fixture(name) {
   return path.join(__dirname, 'fixtures', name);
 }
+
+var moreSemiColons = through(function(chunk) {
+  this.queue(chunk.toString('utf8').replace(/;/g, ';;'));
+});
 
 function assertWorks(app, done) {
   req(app)
@@ -20,9 +25,9 @@ function assertWorks(app, done) {
       if (err) {
         return done(err);
       }
-      assert.ok(/sourceMappingURL/.exec(res.text));
-      assert.ok(/module.exports = 'dep'/.exec(res.text));
-      done();
+      assert.ok(/sourceMappingURL/.exec(res.text), 'source map missing');
+      assert.ok(/module.exports = 'dep'/.exec(res.text), 'dep module missing');
+      done(null, res.text);
     });
 }
 
@@ -48,6 +53,27 @@ describe('connect-browserify', function() {
     assertWorks(app, done);
   });
 
+  it('allows post-bundle transforms via pipe', function(done) {
+    var app = express();
+    app.use(
+      '/bundle.js',
+      middleware({
+        entry: fixture('main.js'),
+        debug: true,
+        pipes: function(stream) {
+          return stream.pipe(moreSemiColons);
+        }
+      })
+    );
+    assertWorks(app, function(err, js) {
+      if (err) {
+        return done(err);
+      }
+      assert.ok(/;;/.exec(js), 'post-transform not applied');
+      done();
+    });
+  });
+
   it('provides access to watchify instance', function(done) {
     var app = express();
     var handler = middleware({
@@ -61,5 +87,6 @@ describe('connect-browserify', function() {
       assertWorks(app, done);
     });
   });
+
 });
 
