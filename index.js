@@ -63,17 +63,20 @@ function serve(options, maybeOptions) {
 
   bundle();
 
-  if (options.watch !== false) {
-    var w = watchify(b);
-    w.on('update', bundle);
-  }
-
-  return function(req, res, next) {
+  var middleware = function(req, res, next) {
     res.setHeader('Content-type', contentType);
     return rendered.then(function(result) {
       return res.end(result);
     }).fail(next);
   };
+
+  if (options.watch !== false) {
+    var w = watchify(b);
+    w.on('update', bundle);
+    middleware.watchify = w;
+  }
+
+  return middleware;
 };
 
 function bundle(options) {
