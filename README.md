@@ -49,6 +49,3 @@ You should never use this middleware in production — use nginx for serving
 pre-built bundles to a browser.
 
 [browserify]: http://browserify.org
-
-
-![viewcount](https://viewcount.jepso.com/count/andreypopp/connect-browserify.png)
