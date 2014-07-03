@@ -8,17 +8,17 @@
   },
   "dependencies": {
     "kew": "~0.1.7",
-    "xtend": "~2.0.0",
     "browserify": "4.x.x",
     "watchify": "~0.10.2"
   },
   "devDependencies": {
+    "coffee-script": "~1.6.3",
+    "eslint": "^0.6.2",
+    "express": "~3.4.4",
+    "mocha": "~1.14.0",
     "semver": "",
     "sphinx-npm": "",
-    "supertest": "~0.8.1",
-    "mocha": "~1.14.0",
-    "coffee-script": "~1.6.3",
-    "express": "~3.4.4"
+    "supertest": "~0.8.1"
   },
   "keywords": [
     "connect",

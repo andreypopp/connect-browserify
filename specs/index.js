@@ -20,38 +20,45 @@ function assertWorks(app, done) {
       if (err) {
         return done(err);
       }
-      assert.ok(/sourceMappingURL/.exec(res.text))
+      assert.ok(/sourceMappingURL/.exec(res.text));
       assert.ok(/module.exports = 'dep'/.exec(res.text));
       done();
     });
-};
+}
 
 describe('connect-browserify', function() {
 
   it('works (configured with module id)', function(done) {
-    app = express();
+    var app = express();
     app.use('/bundle.js', middleware(fixture('main.js'), {debug: true}));
     assertWorks(app, done);
   });
 
   it('works (configured with options object)', function(done) {
-    app = express();
+    var app = express();
     app.use('/bundle.js', middleware({entry: fixture('main.js'), debug: true}));
     assertWorks(app, done);
   });
 
   it('works (configured with browserify instance)', function(done) {
-    app = express();
-    app.use('/bundle.js', middleware(browserify(fixture('main.js')), {debug: true}));
+    var app = express();
+    app.use(
+      '/bundle.js',
+      middleware(browserify(fixture('main.js')), {debug: true}));
     assertWorks(app, done);
   });
 
   it('provides access to watchify instance', function(done) {
-    app = express();
-    handler = middleware({entry: fixture('main.js'), watch: true, debug: true});
+    var app = express();
+    var handler = middleware({
+      entry: fixture('main.js'),
+      watch: true,
+      debug: true
+    });
     app.use('/bundle.js', handler);
     handler.watchify.on('time', function(time) {
-      assertWorks(app, done)
+      assert.ok(time);
+      assertWorks(app, done);
     });
   });
 });

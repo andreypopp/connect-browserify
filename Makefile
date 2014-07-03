@@ -2,10 +2,13 @@ BIN = node_modules/.bin
 PATH := $(BIN):$(PATH)
 
 test:
-	@mocha --compilers coffee:coffee-script -R spec specs/*.coffee
+	@mocha -R spec specs/*.js
 
 link install:
 	@npm $@
+
+lint:
+	@eslint index.js specs/*.js
 
 clean:
 	rm -f *.js *.map

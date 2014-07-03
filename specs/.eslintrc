@@ -1,0 +1,19 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "it": true,
+    "describe": true
+  },
+  "rules": {
+    "quotes": false,
+    "no-underscore-dangle": false,
+    "no-multi-str": false,
+    "no-use-before-define": false,
+    "no-unused-vars": [2, "all"],
+    "no-mixed-requires": [1, true],
+    "max-len": [1, 80, 4]
+  }
+}

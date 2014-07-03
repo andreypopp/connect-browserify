@@ -1,20 +1,18 @@
+'use strict';
+
 var path        = require('path');
 var dirname     = path.dirname;
-var join        = path.join;
-var resolve     = path.resolve;
 var relative    = path.relative;
 
-var fs          = require('fs');
 var kew         = require('kew');
 var browserify  = require('browserify');
 var watchify    = require('watchify');
-var extend      = require('xtend');
 
-function relativize(entry, requirement, extensions) {
+function relativize(entry, requirement) {
   var expose = relative(dirname(entry), requirement);
   expose = expose.replace(/\.[a-z_\-]+$/, '');
   return "./" + expose;
-};
+}
 
 function once(func) {
   var called = false;
@@ -24,17 +22,17 @@ function once(func) {
       return;
     }
     called = true;
-    return func.apply(this, arguments);
+    func.apply(this, arguments);
   };
-};
+}
 
 function isBrowserify(x) {
   return x && (typeof x === 'object') && (typeof x.bundle === 'function');
-};
+}
 
 function isString(x) {
   return Object.prototype.toString.call(x) === '[object String]';
-};
+}
 
 function serve(options, maybeOptions) {
   var b;
@@ -56,12 +54,12 @@ function serve(options, maybeOptions) {
     b = serve.bundle(options);
   }
 
-  function bundle() {
+  function make() {
     var localRendered = rendered = kew.defer();
     return b.bundle(options, once(localRendered.makeNodeResolver()));
-  };
+  }
 
-  bundle();
+  make();
 
   var middleware = function(req, res, next) {
     res.setHeader('Content-type', contentType);
@@ -72,12 +70,12 @@ function serve(options, maybeOptions) {
 
   if (options.watch !== false) {
     var w = watchify(b);
-    w.on('update', bundle);
+    w.on('update', make);
     middleware.watchify = w;
   }
 
   return middleware;
-};
+}
 
 function bundle(options) {
   var b = browserify({
@@ -107,7 +105,7 @@ function bundle(options) {
   }
 
   return b;
-};
+}
 
 module.exports = serve;
 module.exports.serve = serve;
