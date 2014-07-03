@@ -53,6 +53,21 @@ describe('connect-browserify', function() {
     assertWorks(app, done);
   });
 
+  it('works (configured with bundle function)', function(done) {
+    var app = express();
+    app.use(
+      '/bundle.js',
+      middleware({
+        entry: fixture('main.js'),
+        bundle: function(b) {
+          b.external('some-file.js');
+          return b;
+        },
+        debug: true
+      }));
+    assertWorks(app, done);
+  });
+
   it('allows post-bundle transforms via pipe', function(done) {
     var app = express();
     app.use(

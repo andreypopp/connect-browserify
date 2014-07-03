@@ -16,7 +16,10 @@ function relativize(entry, requirement) {
 }
 
 function isBrowserify(x) {
-  return x && (typeof x === 'object') && (typeof x.bundle === 'function');
+  return x && (typeof x === 'object') &&
+    (typeof x.bundle === 'function') &&
+    (typeof x.plugin === 'function') &&
+    (typeof x.transform === 'function');
 }
 
 function isString(x) {
@@ -94,7 +97,7 @@ function bundle(options) {
   }
 
   if (options.bundle) {
-    b = options.bundle(bundle);
+    b = options.bundle(b);
   }
 
   return b;
