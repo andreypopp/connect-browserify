@@ -48,7 +48,7 @@ function serve(options, maybeOptions) {
     rendered = new Promise(function(resolve, reject) {
       var output = pipes(b.bundle(options));
       output.on('error', reject);
-      output.pipe(concat( { encoding: 'string' }, resolve));
+      output.pipe(concat({encoding: 'string'}, resolve));
     });
   }
 
