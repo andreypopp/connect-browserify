@@ -19,13 +19,13 @@ clean:
 example::
 	./example/app.coffee
 
-release-patch: test
+release-patch: lint test
 	@$(call release,patch)
 
-release-minor: test
+release-minor: lint test
 	@$(call release,minor)
 
-release-major: test
+release-major: lint test
 	@$(call release,major)
 
 publish:
