@@ -35,3 +35,10 @@ describe 'connect-browserify', ->
     app = express()
     app.use '/bundle.js', middleware(browserify(fixture('main.js')), debug: true)
     assertWorks(app, done)
+
+  it 'provides access to watchify instance', (done) ->
+    app = express()
+    handler = middleware(entry: fixture('main.js'), watch: true, debug: true)
+    app.use '/bundle.js', handler
+    handler.watchify.on 'time', (time) ->
+      assertWorks(app, done)

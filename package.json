@@ -3,11 +3,14 @@
   "version": "2.0.1",
   "description": "Connect/express middleware for serving apps to a browser with browserify",
   "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
   "dependencies": {
     "kew": "~0.1.7",
     "xtend": "~2.0.0",
-    "browserify": "3.x.x",
-    "watchify": "~0.6.3"
+    "browserify": "4.x.x",
+    "watchify": "~0.10.2"
   },
   "devDependencies": {
     "semver": "",
