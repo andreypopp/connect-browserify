@@ -4,7 +4,7 @@ var path        = require('path');
 var dirname     = path.dirname;
 var relative    = path.relative;
 
-var kew         = require('kew');
+var Promise     = require('bluebird');
 var browserify  = require('browserify');
 var watchify    = require('watchify');
 
@@ -55,8 +55,15 @@ function serve(options, maybeOptions) {
   }
 
   function make() {
-    var localRendered = rendered = kew.defer();
-    return b.bundle(options, once(localRendered.makeNodeResolver()));
+    rendered = new Promise(function(resolve, reject) {
+      b.bundle(options, once(function(err, result) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }));
+    });
   }
 
   make();
@@ -65,7 +72,7 @@ function serve(options, maybeOptions) {
     res.setHeader('Content-type', contentType);
     return rendered.then(function(result) {
       return res.end(result);
-    }).fail(next);
+    }).catch(next);
   };
 
   if (options.watch !== false) {
