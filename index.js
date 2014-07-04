@@ -36,6 +36,7 @@ function serve(options, maybeOptions) {
 
   var contentType = options.contentType || 'application/javascript';
   var pipes = options.pipes || function(x) { return x; };
+  var onError = options.onError || function() { };
 
   if (isBrowserify(options)) {
     b = options;
@@ -53,6 +54,7 @@ function serve(options, maybeOptions) {
       output.on('error', reject);
       output.pipe(concat({encoding: 'string'}, resolve));
     });
+    rendered.catch(onError);
   }
 
   make();
