@@ -103,5 +103,34 @@ describe('connect-browserify', function() {
     });
   });
 
+  it('should expose build errors', function(done) {
+    var app = express();
+    var handler = middleware({
+      entry: fixture('broken.js'),
+      onError: makeRequest
+    });
+    app.use('/bundle.js', handler);
+    // Add express error catching middleware
+    app.use(function(err, req, res, next) {
+      res.send(500, err.stack);
+      // silence unused var warning
+      next = !next;
+    });
+    // Let the promise resolve as error before making a request
+    function makeRequest(capturedError) {
+      req(app)
+        .get('/bundle.js')
+        .expect(500)
+        .end(function(err, res) {
+          if (err) {
+            done(err);
+          }
+          assert.ok(capturedError, 'expected error in onerror');
+          assert.equal(res.text, capturedError.stack);
+          done();
+        });
+    }
+  });
+
 });
 

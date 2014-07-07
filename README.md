@@ -30,6 +30,10 @@ app.use('/js/app.js', browserify({
       .pipe(uglifyStream);        // Must return another stream
   },
 
+  onError: function(err) {        // optional, called if errors occur during the
+    console.warn(err);            // build process. If not set, errors are only
+  },                              // available via the middleware response
+
   contentType: 'text/javascript', // optional, Content-type header to use, by
                                   // default this equals to 'application/javascript'
 
