@@ -15,11 +15,11 @@
   "devDependencies": {
     "coffee-script": "~1.6.3",
     "eslint": "^0.6.2",
-    "express": "~3.4.4",
+    "express": "^4.8.3",
     "mocha": "~1.14.0",
     "semver": "",
     "sphinx-npm": "",
-    "supertest": "~0.8.1",
+    "supertest": "^0.13.0",
     "through": "^2.3.4"
   },
   "keywords": [

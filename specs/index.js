@@ -112,7 +112,7 @@ describe('connect-browserify', function() {
     app.use('/bundle.js', handler);
     // Add express error catching middleware
     app.use(function(err, req, res, next) {
-      res.send(500, err.stack);
+      res.status(500).send(err.stack);
       // silence unused var warning
       next = !next;
     });
