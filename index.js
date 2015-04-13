@@ -42,7 +42,7 @@ function serve(options, maybeOptions) {
     b = options;
     options = maybeOptions;
   } else if (isString(options)) {
-    b = serve.bundle({entry: options});
+    b = serve.bundle({entry: options, debug: maybeOptions.debug});
     options = maybeOptions;
   } else {
     b = serve.bundle(options);

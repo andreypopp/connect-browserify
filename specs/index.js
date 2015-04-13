@@ -49,7 +49,7 @@ describe('connect-browserify', function() {
     var app = express();
     app.use(
       '/bundle.js',
-      middleware(browserify(fixture('main.js')), {debug: true}));
+      middleware(browserify(fixture('main.js'), {debug: true})));
     assertWorks(app, done);
   });
 
