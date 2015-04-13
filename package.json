@@ -1,6 +1,6 @@
 {
   "name": "connect-browserify",
-  "version": "3.2.1",
+  "version": "4.0.0",
   "description": "Connect/express middleware for serving apps to a browser with browserify",
   "main": "index.js",
   "scripts": {
