@@ -50,7 +50,7 @@ function serve(options, maybeOptions) {
 
   function make() {
     rendered = new Promise(function(resolve, reject) {
-      var output = pipes(b.bundle(options));
+      var output = pipes(b.bundle());
       output.on('error', reject);
       output.pipe(concat({encoding: 'string'}, resolve));
     });
@@ -78,7 +78,8 @@ function serve(options, maybeOptions) {
 function bundle(options) {
   var b = browserify({
     entries: [options.entry],
-    extensions: options.extensions
+    extensions: options.extensions,
+    debug: options.debug
   });
 
   b.delay = options.bundleDelay || 300;
