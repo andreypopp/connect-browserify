@@ -85,7 +85,11 @@ function bundle(options) {
 
   if (options.transforms) {
     options.transforms.forEach(function(transform) {
-      b.transform(transform);
+      if (Array.isArray(transform)) {
+        b.transform.apply(b, transform);
+      } else {
+        b.transform(transform);
+      }
     });
   }
 
